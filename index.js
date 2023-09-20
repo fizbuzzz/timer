@@ -15,7 +15,7 @@ let hoursElem = document.querySelector('.hours .timer__value');
 
 const setNumber = arg => arg < 10 ? `0${arg}` : `${arg}`;
 
-function SetValues () {
+function setValues () {
     secondsElem.textContent = setNumber(seconds)
     minutesElem.textContent = setNumber(minutes)
     hoursElem.textContent = setNumber(hours)
@@ -23,7 +23,7 @@ function SetValues () {
 
 
 
-function resetValues (firstValue,firstValueElem, secondValue, secondValueElem) {
+function updateValues (firstValue,firstValueElem, secondValue, secondValueElem) {
     firstValue = 0;
     firstValueElem.textContent = setNumber(firstValue);
     secondValue++;
@@ -31,11 +31,11 @@ function resetValues (firstValue,firstValueElem, secondValue, secondValueElem) {
 }
 
 function setMinutes () {
-    resetValues(seconds, secondsElem, minutes, minutes)
+    updateValues(seconds, secondsElem, minutes, minutes)
 }
 
 function setHours () {
-    resetValues(minutes, minutesElem, hours, hoursElem)
+    updateValues(minutes, minutesElem, hours, hoursElem)
 }
 
 function addAndRemoveClasses (firstElem , secondElem, thirdElem) {
@@ -64,7 +64,7 @@ let startTimer = () => {
         seconds = 0;
         minutes = 0;
         hours = 0;
-        SetValues()
+        setValues()
         this.classList.add('off')
         pauseButton.classList.add('off')
         startButton.classList.remove('off')
