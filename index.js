@@ -13,29 +13,47 @@ let secondsElem = document.querySelector('.seconds .timer__value');
 let minutesElem = document.querySelector('.minutes .timer__value');
 let hoursElem = document.querySelector('.hours .timer__value');
 
-const setNumber = arg => arg < 10 ? `0${arg}` : `${arg}`;
+const zeroHelper = arg => arg < 10 ? `0${arg}` : `${arg}`;
 
 function setValues () {
-    secondsElem.textContent = setNumber(seconds)
-    minutesElem.textContent = setNumber(minutes)
-    hoursElem.textContent = setNumber(hours)
+    secondsElem.textContent = zeroHelper(seconds)
+    minutesElem.textContent = zeroHelper(minutes)
+    hoursElem.textContent = zeroHelper(hours)
 }
 
 
 
-function updateValues (firstValue,firstValueElem, secondValue, secondValueElem) {
+function updateValues (firstValue, secondValue) {
+    
     firstValue = 0;
-    firstValueElem.textContent = setNumber(firstValue);
     secondValue++;
-    secondValueElem.textContent = setNumber(secondValue);
+
+    return [firstValue,secondValue]
+}
+
+function setTextContent (firstArg, secondArg, firstValue, secondValue) {
+    firstArg.textContent = zeroHelper(firstValue);
+    secondArg.textContent = zeroHelper(secondValue);
 }
 
 function setMinutes () {
-    updateValues(seconds, secondsElem, minutes, minutes)
+    let values = updateValues(seconds, minutes)
+    seconds = values[0];
+    minutes = values[1]
+    
+    setTextContent(secondsElem, minutesElem, seconds, minutes)
 }
 
+
+
+
+
 function setHours () {
-    updateValues(minutes, minutesElem, hours, hoursElem)
+    let values = updateValues(minutes, hours)
+    minutes = values[0];
+    hours = values[1]    
+    setTextContent(minutesElem, hoursElem, minutes, hours)
+   
 }
 
 function addAndRemoveClasses (firstElem , secondElem, thirdElem) {
@@ -48,7 +66,7 @@ let startTimer = () => {
 
         let timeOut = setTimeout(() => {
         seconds++;
-        secondsElem.textContent = setNumber(seconds)
+        secondsElem.textContent = zeroHelper(seconds)
         if (seconds === 60) {
             setMinutes()
         }
